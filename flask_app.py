@@ -1,27 +1,43 @@
 from flask import Flask, render_template, request
+import math
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def index():
-    kulu_100km = ''
-    kulu_maksumus = ''
-    if request.method == 'POST':
+    tulemus = None
+    error = None
+
+    if request.method == "POST":
         try:
-            km = float(request.form['km'])
-            liitrid = float(request.form['liitrid'])
-            hind = float(request.form['hind'])
+            laenusumma = float(request.form["laenusumma"])
+            sissemakse = float(request.form["sissemakse"])
+            intress = float(request.form["intress"])
+            periood = int(request.form["periood"])
+            yksus = request.form["yksus"]
 
-            kulu_100km = (liitrid / km) * 100
-            kulu_maksumus = liitrid * hind
+            laenusumma -= sissemakse
 
-            kulu_100km = f"{kulu_100km:.2f}"
-            kulu_maksumus = f"{kulu_maksumus:.2f}"
-        except:
-            kulu_100km = "Viga sisendis!"
-            kulu_maksumus = "Viga sisendis!"
-        
-    return render_template('index.html', kulu_100km=kulu_100km, kulu_maksumus=kulu_maksumus)
+            if yksus == "aastates":
+                periood_kuudes = periood * 12
+            else:
+                periood_kuudes = periood
 
-if __name__ == '__main__':
+            kuine_intress = intress / 100 / 12
+
+            kuine_makse = (
+                laenusumma
+                * kuine_intress
+                * math.pow(1 + kuine_intress, periood_kuudes)
+                / (math.pow(1 + kuine_intress, periood_kuudes) - 1)
+            )
+
+            tulemus = f"Igakuine makse: {kuine_makse:.2f} €"
+
+        except ValueError:
+            error = "Palun sisesta kehtivad numbrid."
+
+    return render_template("index.html", tulemus=tulemus, error=error)
+
+if __name__ == "__main__":
     app.run(debug=True)
