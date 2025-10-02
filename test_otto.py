@@ -1,1 +1,0 @@
-print("Otto-Marten Planken")
