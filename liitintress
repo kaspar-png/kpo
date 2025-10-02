@@ -1,0 +1,69 @@
+import tkinter as tk
+import math
+
+
+def liitintress_kalkulaator():
+    try:
+        algkapital = float(sisend_algkapital.get())  
+        igakuine = float(sisend_igakuine.get()) 
+        tootlus = float(sisend_tootlus.get())  
+        periood = int(sisend_periood.get())  
+
+        #valem
+        n = periood  # periood aastates
+        r = tootlus / 100  # aastane tootlus
+        k = 12  
+        
+        tulemus = algkapital * (1 + r / k) ** (k * n) + igakuine * ((math.pow(1 + r / k, k * n) - 1) / (r / k))
+
+        label_tulemus.config(text=f"Lõplik summa: {tulemus:.2f} €")
+
+    except ValueError:
+        label_tulemus.config(text="Palun sisesta kehtivad numbrid.")
+
+root = tk.Tk()
+root.title("Liitintressi Kalkulaator")
+
+root.geometry("400x400")
+
+label_title = tk.Label(root, text="Liitintressi Kalkulaator", font=("Times New Roman", 14))
+label_title.grid(row=0, columnspan=2, padx=10, pady=20)
+
+# (algkapital)
+label_algkapital = tk.Label(root, text="Esimene investeering (€):")
+label_algkapital.grid(row=1, column=0, padx=10, pady=10)
+
+sisend_algkapital = tk.Entry(root)
+sisend_algkapital.grid(row=1, column=1, padx=10, pady=10)
+
+# Igakuine investeering
+label_igakuine = tk.Label(root, text="Igakuine investeering (€):")
+label_igakuine.grid(row=2, column=0, padx=10, pady=10)
+
+sisend_igakuine = tk.Entry(root)
+sisend_igakuine.grid(row=2, column=1, padx=10, pady=10)
+
+# Aastane tootlus
+label_tootlus = tk.Label(root, text="Aastane tootlus (%):")
+label_tootlus.grid(row=3, column=0, padx=10, pady=10)
+
+sisend_tootlus = tk.Entry(root)
+sisend_tootlus.grid(row=3, column=1, padx=10, pady=10)
+
+# Investeerimisperiood
+label_periood = tk.Label(root, text="Investeerimisperiood (aastates):")
+label_periood.grid(row=4, column=0, padx=10, pady=10)
+
+sisend_periood = tk.Entry(root)
+sisend_periood.grid(row=4, column=1, padx=10, pady=10)
+
+# Nupp
+nupp_arvuta = tk.Button(root, text="Arvuta", command=liitintress_kalkulaator)
+nupp_arvuta.grid(row=5, columnspan=2, pady=20)
+
+# Tulemus
+label_tulemus = tk.Label(root, text="Lõplik summa: ")
+label_tulemus.grid(row=6, columnspan=2, pady=10)
+
+root.mainloop()
+
