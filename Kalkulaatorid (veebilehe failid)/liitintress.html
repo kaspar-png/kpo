@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Liitintressi kalkulaator</title>
+</head>
+<body>
+    <h1>Liitintressi kalkulaator</h1>
+    <form method="POST">
+        <label>Esimene investeering (€):</label>
+        <input type="number" step="any" name="algkapital" required><br><br>
+
+        <label>Igakuine investeering (€):</label>
+        <input type="number" step="any" name="igakuine" required><br><br>
+
+        <label>Aastane tootlus (%):</label>
+        <input type="number" step="any" name="tootlus" required><br><br>
+
+        <label>Investeerimisperiood (aastates):</label>
+        <input type="number" step="1" name="periood" required><br><br>
+
+        <input type="submit" value="Arvuta">
+    </form>
+
+    {% if tulemus %}
+    <h3>Lõplik summa: {{ tulemus }}</h3>
+    {% endif %}
+    {% if error %}
+    <h3 style="color:red">{{ error }}</h3>
+    {% endif %}
+    <a href="/">Tagasi menüüsse</a>
+</body>
+</html>

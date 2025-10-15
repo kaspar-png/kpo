@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Laenukalkulaator</title>
+</head>
+<body>
+    <h1>Laenukalkulaator</h1>
+    <form method="POST">
+        <label>Laenusumma (€):</label>
+        <input type="number" step="any" name="laenusumma" required><br><br>
+
+        <label>Sissemakse (€):</label>
+        <input type="number" step="any" name="sissemakse" required><br><br>
+
+        <label>Intress (% aastas):</label>
+        <input type="number" step="any" name="intress" required><br><br>
+
+        <label>Periood:</label>
+        <input type="number" step="1" name="periood" required>
+        <select name="yksus">
+            <option value="aastates">Aastates</option>
+            <option value="kuudes">Kuudes</option>
+        </select><br><br>
+
+        <input type="submit" value="Arvuta">
+    </form>
+
+    {% if tulemus %}
+    <h3>Igakuine makse: {{ tulemus }}</h3>
+    {% endif %}
+    {% if error %}
+    <h3 style="color:red">{{ error }}</h3>
+    {% endif %}
+    <a href="/">Tagasi menüüsse</a>
+</body>
+</html>
