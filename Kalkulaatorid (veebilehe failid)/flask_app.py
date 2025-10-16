@@ -7,7 +7,6 @@ app = Flask(__name__)
 def menu():
     return render_template('menu.html')
 
-# Liitintressi kalkulaator
 @app.route('/liitintress', methods=['GET', 'POST'])
 def liitintress():
     tulemus = None
@@ -31,7 +30,6 @@ def liitintress():
 
     return render_template('liitintress.html', tulemus=tulemus, error=error)
 
-# Laenukalkulaator
 @app.route('/laen', methods=['GET', 'POST'])
 def laen():
     tulemus = None
@@ -62,7 +60,6 @@ def laen():
 
     return render_template('laen.html', tulemus=tulemus, error=error)
 
-# Kütusekulu kalkulaator
 @app.route('/kutus', methods=['GET', 'POST'])
 def kutus():
     kulu_100km = ''
@@ -87,3 +84,4 @@ def kutus():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
