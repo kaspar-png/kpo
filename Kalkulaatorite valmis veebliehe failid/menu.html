@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Peamenüü</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            background: linear-gradient(180deg, #d8ecff, #b9ddff);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu {
+            background: #fff;
+            padding: 60px 80px;
+            border-radius: 15px;
+            box-shadow: 0 8px 35px rgba(0,0,0,0.15);
+            text-align: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #0066cc;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        a {
+            display: block;
+            margin: 20px 0;
+            padding: 20px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        a:hover {
+            background: #0055aa;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <h1>Vali kalkulaator</h1>
+        <a href="/liitintress">Liitintressi kalkulaator</a>
+        <a href="/laen">Laenukalkulaator</a>
+        <a href="/kutus">Kütusekulu kalkulaator</a>
+    </div>
+</body>
+</html>

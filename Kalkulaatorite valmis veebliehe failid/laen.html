@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Laenukalkulaator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, #d8ecff, #b9ddff);
+    }
+
+    .calculator {
+      background: #ffffff;
+      padding: 45px 55px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      width: 400px;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    h1 {
+      color: #0066cc;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background-color: #0066cc;
+      color: white;
+      padding: 12px;
+      font-size: 1em;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0055aa;
+      transform: scale(1.03);
+    }
+
+    .result, .error {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 6px;
+      opacity: 0;
+      animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .result {
+      background: #f0f6ff;
+      border-left: 4px solid #0066cc;
+      color: #0066cc;
+      font-size: 1em;
+      word-wrap: break-word;
+    }
+
+    .error {
+      background: #ffe5e5;
+      border-left: 4px solid #cc0000;
+      color: #cc0000;
+      font-size: 0.95em;
+    }
+
+    .back-button {
+      display: block;
+      margin-top: 25px;
+      padding: 12px 20px;
+      background-color: #e6f0ff;
+      border: 1px solid #0066cc;
+      border-radius: 8px;
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .back-button:hover {
+      background-color: #cce0ff;
+      transform: scale(1.03);
+    }
+
+    .disclaimer {
+      background-color: #fff9c4;
+      color: #665c00;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-size: 0.9em;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Laenukalkulaator</h1>
+
+    <form method="POST">
+      <label>Laenusumma (€):</label>
+      <input type="number" step="any" name="laenusumma" required>
+
+      <label>Sissemakse (€):</label>
+      <input type="number" step="any" name="sissemakse" required>
+
+      <label>Intress (% aastas):</label>
+      <input type="number" step="any" name="intress" required>
+
+      <label>Periood:</label>
+      <input type="number" step="1" name="periood" required>
+
+      <select name="yksus">
+        <option value="aastates">Aastates</option>
+        <option value="kuudes">Kuudes</option>
+      </select>
+
+      <input type="submit" value="Arvuta">
+    </form>
+
+    {% if tulemus %}
+    <div class="result">
+      <h3>Igakuine makse: {{ tulemus }}</h3>
+      {% if kogusumma %}
+      <h3>Kogusumma: {{ kogusumma }}</h3>
+      {% endif %}
+
+      <div class="disclaimer">
+        Märkus: Käesolev kalkulaator annab umbkaudse kuumakse hinnangu. Tegelikud maksed võivad erineda, kuna see ei arvesta laenupakkuja poolt määratud lepingutasusid, haldustasusid ega muid lisakulusid. Lõplike summade teada saamiseks on soovitatav konsulteerida oma panga või laenuandjaga.
+      </div>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+      <h3>{{ error }}</h3>
+    </div>
+    {% endif %}
+
+    <a href="/" class="back-button">← Tagasi menüüsse</a>
+  </div>
+</body>
+</html>

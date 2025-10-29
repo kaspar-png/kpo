@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Liitintressi kalkulaator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #cce6ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #fff;
+      padding: 50px 45px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    h1 {
+      color: #0066cc;
+      margin-bottom: 35px;
+      font-size: 2em;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      text-align: left;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #0066cc;
+      box-shadow: 0 0 6px rgba(0, 102, 204, 0.3);
+      outline: none;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background-color: #0066cc;
+      color: white;
+      padding: 14px;
+      font-size: 1.1em;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0055aa;
+      transform: scale(1.03);
+    }
+
+    .result, .error {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 8px;
+      opacity: 0;
+      animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .result {
+      background: #f0f6ff;
+      border-left: 4px solid #0066cc;
+      color: #0066cc;
+    }
+
+    .error {
+      background: #ffe5e5;
+      border-left: 4px solid #cc0000;
+      color: #cc0000;
+    }
+
+    .disclaimer {
+      background-color: #fff9c4;
+      color: #665c00;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-size: 0.9em;
+      text-align: left;
+    }
+
+    .back-button {
+      display: block;
+      margin-top: 25px;
+      padding: 14px 22px;
+      background-color: #e6f0ff;
+      border: 1px solid #0066cc;
+      border-radius: 10px;
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .back-button:hover {
+      background-color: #cce0ff;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Liitintressi kalkulaator</h1>
+
+    <form method="POST">
+      <label>Esimene investeering (€):</label>
+      <input type="number" step="any" name="algkapital" required>
+
+      <label>Igakuine investeering (€):</label>
+      <input type="number" step="any" name="igakuine" required>
+
+      <label>Aastane tootlus (%):</label>
+      <input type="number" step="any" name="tootlus" required>
+
+      <label>Investeerimisperiood (aastates):</label>
+      <input type="number" step="1" name="periood" required>
+
+      <input type="submit" value="Arvuta">
+    </form>
+
+    {% if tulemus %}
+    <div class="result">
+      <h3>Lõplik summa: {{ tulemus }}</h3>
+      <div class="disclaimer">
+        Märkus: Kalkulaator annab umbkaudse tulemuse ega arvesta maksude, lisatasude ega inflatsiooni mõjuga.
+      </div>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+      <h3>{{ error }}</h3>
+    </div>
+    {% endif %}
+
+    <a href="/" class="back-button">← Tagasi menüüsse</a>
+  </div>
+</body>
+</html>
